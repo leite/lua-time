@@ -1,0 +1,45 @@
+
+#
+LIBNAME =time
+LIBSUFFIX =.dll
+
+# common prefix 
+INCDIR =C:\dev\dev-cpp\include
+LUAPREFIX =C:\dev\Luajit
+
+# LuaJIT2
+LUAINC =$(LUAPREFIX)\src
+LUALIB =$(LUAPREFIX)\src
+LLIB = lua51
+
+# basic setup
+CC =gcc
+WARN =-Wall
+INCS =-I$(INCDIR) -I$(LUAINC)
+LIBS =-L$(LUALIB) -lm -l$(LLIB) 
+OPTS =-O9
+DLL =-c
+SHARE =-shared
+CFLAGS =$(DLL) $(OPTS) -I$(LUAINC)
+CFLAGS_DLL =$(SHARE) $(OPTS) $(LIBS) $(INCS)
+
+# Strip the binary for our prod build
+STRIP =strip
+
+# UPX pack to minimise size for our prod build
+UPX =upx
+UPXFLAG =-9
+
+# 
+$(LIBNAME)$(LIBSUFFIX): $(LIBNAME).o
+	$(CC) -o $@ $^ $(CFLAGS_DLL)
+
+$(LIBNAME).o: $(LIBNAME).c
+	$(CC) -o $@ $^ $(CFLAGS)
+
+release: $(LIBNAME)$(LIBSUFFIX)
+	$(STRIP) $<
+	$(UPX) $(UPXFLAG) $<
+	
+clean:
+	rm *.o *.dll
