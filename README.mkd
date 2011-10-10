@@ -1,0 +1,63 @@
+# Summary
+
+lua-time is a simple and small library that provides some time methods that are lacking on standart library.
+
+# Support
+
+Send me a message on github <leite>, I'll support as soon as possible and when it is possible.
+
+# License
+
+BEER-WARE, see source file
+
+# Prerequisites
+
++ Lua 5.1 (or Luajit 2.0.8 GIT HEAD)
++ GNU Compiler tools (min-gw32 on windows http://sourceforge.net/projects/mingw/files/MinGW/ )
++ UPX eXe compressor (not needed)
+
+# Installation
+
+Tested on windows only, compatible with *NIX systens. You only need to edit some vars on makefile, for basic instalation use:
+
+    # make
+
+If you have upx use this for better output.
+	
+	# make release
+	
+For cleanup
+
+	# make clean
+	
+# Methods
+
+```lua
+
+require 'time'
+
+time.getSeconds() 		-- return time in seconds since EPOCH, ex: 1318215923
+
+time.getMiliseconds() 	-- return time in seconds and milisenconds since EPOCH, ex: 1318215923.112
+
+time.getMicroseconds()	-- return time in microseconds relative to seconds since EPOCH, ex: 0.903249
+
+time.getDiff( <seconds/miliseconds> )		-- return the difference between a given time and now.
+
+```	
+
+# Test
+
+There's a file 'time_bench.lua' that have a benchmark using a bitwise library ( http://bitop.luajit.org/ ) ...
+
+# History
+
+One day, some friend of mine asked me to make a benchmark between Lua and AS3 (Action Script 3). 
+He's doing some code improvements in a game that we are developing, mostly at "round method" provided by AS3 math library,
+and as I know native methods may peform better than workarounds, but in AS3 a round method made in bitwise could peform 
+much faster than native round method ... so I accept the chalenge and I realize that Lua doesn't have a method that 
+provide a milisecond precision. Then I found myself in a second chalenge and here I go!
+
+PS: for the record, Lua (LuaJIT) is about 100x faster than AS3 round method (bitwise) and Lua native math library is 2-3x faster than bitwise method.  
+
+% October 10th, 2011 -03 GMT
