@@ -42,7 +42,7 @@ double get_time( UINT k ){
 	gettimeofday( &tv, NULL );
 	
 	if( k==SEC ) 		return tv.tv_sec;
-	else if( k==MSEC )	return (double)((int)(tv.tv_usec*0.001) * 0.001);
+	else if( k==MSEC )	return (tv.tv_sec + (double)((int)(tv.tv_usec*0.001) * 0.001));
 	else if( k==USEC )	return (tv.tv_usec*0.000001);
 	else 				return 0;
 }
@@ -50,7 +50,7 @@ double get_time( UINT k ){
 /* get miliseconds relative to seconds since EPOCH */
 int t_mili (lua_State *L) {
 	
-	lua_pushnumber(L, ( get_time( MSEC ) + get_time( SEC ) ) );
+	lua_pushnumber(L, get_time( MSEC ) );
 	return 1;
 }
 
@@ -73,7 +73,7 @@ int t_diff (lua_State *L){
 	
 	double v1= (double)luaL_checknumber( L, 1 );
 	
-	lua_pushnumber( L, ( ( get_time( MSEC ) + get_time( SEC ) ) - v1 ) );
+	lua_pushnumber( L, ( get_time( MSEC ) - v1 ) );
 	return 1;
 }
 
