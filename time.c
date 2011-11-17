@@ -77,12 +77,26 @@ int t_diff (lua_State *L){
 	return 1;
 }
 
+/* return seconds, miliseconds and microseconds */
+int t_time (lua_State *L){
+	
+	struct timeval tv;
+	gettimeofday( &tv, NULL );
+	
+	lua_pushnumber( L, tv.tv_sec );
+	lua_pushnumber( L, (double)((int)(tv.tv_usec*0.001) * 0.001) );
+	lua_pushnumber( L, (double)(tv.tv_usec * 0.000001) );
+	
+	return 3;
+}
+
 /* register functions */
 const struct luaL_reg time_lib[] = {
   {"getMiliseconds", t_mili},
   {"getSeconds", t_seconds},
   {"getMicroseconds", t_micro},
   {"getDiff", t_diff},
+  {"getTime", t_time},
   {NULL, NULL}
 };
 

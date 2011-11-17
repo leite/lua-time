@@ -42,6 +42,8 @@ time.getMiliseconds() 	-- return time in seconds and milisenconds since EPOCH, e
 
 time.getMicroseconds()	-- return time in microseconds relative to seconds since EPOCH, ex: 0.903249
 
+time.getTime()			-- return time in seconds, microseconds and microseconds since EPOCH, ex: 1321559562	0.971 	0.971777
+
 time.getDiff( <seconds/miliseconds> )		-- return the difference between a given time and now.
 
 ```	
